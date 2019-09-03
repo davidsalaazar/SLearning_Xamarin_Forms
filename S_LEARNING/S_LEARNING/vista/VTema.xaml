@@ -1,0 +1,91 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="S_LEARNING.vista.VTema"
+             Title="Temas"
+             BindingContext="{Binding Main, Source={StaticResource instanceLocator}}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout VerticalOptions="FillAndExpand" Padding="10" BindingContext="{Binding Tema}">
+                <StackLayout IsVisible="{Binding EsRegistro}">
+                    <Grid Margin="10,0" VerticalOptions="CenterAndExpand">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                            <ColumnDefinition Width="2*"/>
+                        </Grid.ColumnDefinitions>
+
+                        <Label HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="0" Text="Nombre Tema: " VerticalOptions="Center"/>
+                        <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Nombre, Mode=TwoWay}"/>
+                    </Grid>
+
+                    <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding Proceso, Mode=TwoWay}"/>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="CREAR" BackgroundColor="ForestGreen" BorderRadius="20" 
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold"
+                                HorizontalOptions="FillAndExpand" Command="{Binding actionRegistrarTema}"
+                                IsEnabled="{Binding BotonActivo, Mode=TwoWay}"/>
+                        <Button Text="Cancelar" BackgroundColor="OrangeRed" BorderRadius="20" 
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold"
+                                HorizontalOptions="FillAndExpand" Command="{Binding actionCancelar}"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout IsVisible="{Binding EsActividad}">
+                    <StackLayout Orientation="Horizontal" >
+                        <Button Text="Nuevo" BackgroundColor="ForestGreen" BorderRadius="20"
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold" IsEnabled="{Binding BotonActivo, Mode=TwoWay}"
+                                HorizontalOptions="FillAndExpand" Command="{Binding actionRedireccionaRegistroActividad, Mode=TwoWay}"/>
+                        <Button Text="Eliminar" BackgroundColor="OrangeRed" BorderRadius="20"
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold" IsEnabled="{Binding BotonActivo, Mode=TwoWay}"
+                                HorizontalOptions="FillAndExpand" Command="{Binding actionEliminarTema, Mode=TwoWay}"/>
+                    </StackLayout>
+
+                    <Label Text="Sin registros" FontSize="Large"
+                            VerticalOptions="CenterAndExpand" TextColor="OrangeRed"
+                            HorizontalOptions="CenterAndExpand"
+                            IsVisible="{Binding ListaVacia}"/>
+
+                    <ListView HasUnevenRows="true" IsPullToRefreshEnabled="True"
+                              IsRefreshing="{Binding Proceso}"
+                              RefreshCommand="{Binding refreshActividades}"
+                              ItemsSource="{Binding Actividades}"
+                              SeparatorVisibility="None">
+                        <ListView.ItemTemplate>
+                            <DataTemplate>
+                                <ViewCell>
+                                    <Frame CornerRadius="10" HasShadow="true" Margin="2">
+                                        <Frame.GestureRecognizers>
+                                            <TapGestureRecognizer Command="{Binding actionAbreActividad}"/>
+                                        </Frame.GestureRecognizers>
+
+                                        <Grid>
+                                            <Grid.ColumnDefinitions>
+                                                <ColumnDefinition Width="*"/>
+                                                <ColumnDefinition Width="Auto"/>
+                                            </Grid.ColumnDefinitions>
+
+                                            <StackLayout Grid.Column="0">
+                                                <Label FontAttributes="Bold" FontSize="Medium" Text="{Binding nombre}" 
+                                                       TextColor="MediumVioletRed"/>
+                                                <StackLayout Orientation="Horizontal" >
+                                                    <Label  FontSize="Small" Text="{Binding fechaFin}" HorizontalOptions="StartAndExpand"
+                                                           TextColor="Black"/>
+                                                    <Label  FontSize="Small" Text="{Binding horaFin}" HorizontalOptions="StartAndExpand"
+                                                       TextColor="Black"/>
+                                                </StackLayout>
+                                                <Label  FontSize="Micro" Text="{Binding valor}" 
+                                                       TextColor="Black"/>
+                                            </StackLayout>
+                                            <Image Grid.Column="1" HeightRequest="20" HorizontalOptions="End" Source="ic_chevron_right"/>
+                                        </Grid>
+                                    </Frame>
+                                </ViewCell>
+                            </DataTemplate>
+                        </ListView.ItemTemplate>
+                    </ListView>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

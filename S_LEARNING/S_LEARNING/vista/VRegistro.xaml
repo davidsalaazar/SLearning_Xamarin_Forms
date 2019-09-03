@@ -1,0 +1,56 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="S_LEARNING.vista.VRegistro" 
+             BindingContext="{Binding Main, Source={StaticResource instanceLocator}}"
+             Title="Registrar nuevo usuario">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="5" BindingContext="{Binding Registro}">
+                <Image Source="logo_0" WidthRequest="140" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                <Image Source="logo_1" WidthRequest="205" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+
+                <Picker Margin="10,0" Title="Seleccione tipo de usuario" SelectedItem="{Binding SoyProfesor, Mode=TwoWay}">
+                    <Picker.Items>
+                        <x:String>Soy Profesor</x:String>
+                        <x:String>Soy Alumno</x:String>
+                    </Picker.Items>
+                </Picker>
+
+                <Grid IsVisible="{Binding FormsVisibles}" Margin="10,0" VerticalOptions="CenterAndExpand">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="2*"/>
+                    </Grid.ColumnDefinitions>
+
+                    <Label HorizontalOptions="EndAndExpand" Grid.Row="0" Grid.Column="0" Text="Nombre: " VerticalOptions="Center"/>
+                    <Entry Grid.Row="0" Grid.Column="1" Text="{Binding Nombre, Mode=TwoWay}"/>
+
+                    <Label HorizontalOptions="EndAndExpand" Grid.Row="1"  Grid.Column="0" Text="Correo: " VerticalOptions="Center"/>
+                    <Entry Grid.Row="1"  Grid.Column="1" Keyboard="Email" Text="{Binding Correo, Mode=TwoWay}"/>
+
+                    <Label HorizontalOptions="EndAndExpand" Grid.Row="2"  Grid.Column="0" Text="Nickname: " VerticalOptions="Center"/>
+                    <Entry Grid.Row="2"  Grid.Column="1" Text="{Binding Nickname, Mode=TwoWay}"/>
+
+                    <Label HorizontalOptions="EndAndExpand" Grid.Row="3"  Grid.Column="0" Text="Contraseña: " VerticalOptions="Center"/>
+                    <Entry Grid.Row="3"  Grid.Column="1" IsPassword="true" Text="{Binding Contrasena, Mode=TwoWay}"/>
+
+                    <Label HorizontalOptions="EndAndExpand" Grid.Row="4"  Grid.Column="0" Text="Repita su contraseña: " VerticalOptions="Center"/>
+                    <Entry Grid.Row="4"  Grid.Column="1" IsPassword="true" Text="{Binding Contrasena1, Mode=TwoWay}"/>
+                </Grid>
+
+                <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding Proceso, Mode=TwoWay}"/>
+                
+                <StackLayout IsVisible="{Binding FormsVisibles}" Orientation="Horizontal">
+                    <Button Text="CREAR" BackgroundColor="ForestGreen" BorderRadius="23" 
+                        TextColor="White" HeightRequest="46" FontAttributes="Bold"
+                            HorizontalOptions="FillAndExpand" Command="{Binding actionIniciar}"
+                            IsEnabled="{Binding BtnActivo, Mode=TwoWay}"/>
+                    <Button Text="Cancelar" BackgroundColor="OrangeRed" BorderRadius="23" 
+                        TextColor="White" HeightRequest="46" FontAttributes="Bold"
+                            HorizontalOptions="FillAndExpand" Command="{Binding actionCancelar}"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

@@ -1,0 +1,86 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="S_LEARNING.vista.VActividad"
+             BindingContext="{Binding Main, Source={StaticResource instanceLocator}}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout VerticalOptions="FillAndExpand" Padding="5" Margin="15,0" BindingContext="{Binding Actividad}">
+                <StackLayout VerticalOptions="FillAndExpand" IsVisible="{Binding ResgistraActividad}">
+                    <Label HorizontalOptions="Start" Text="Nombre Actividad"/>
+                    <Entry Text="{Binding Nombre}" Margin="30,0" HorizontalTextAlignment="Start"/>
+
+                    <Label HorizontalOptions="Start" Text="Descripcion"/>
+                    <Entry Text="{Binding Descripcion}" Margin="30,0" HorizontalTextAlignment="Start"/>
+
+                    <Label HorizontalOptions="Start" Text="Fecha de Inicio"/>
+                    <DatePicker Date="{Binding FechaInicio, Mode=TwoWay}"   Margin="30,0"/>
+
+                    <Label HorizontalOptions="Start" Text="Fecha de cierre"/>
+                    <DatePicker Date="{Binding FechaFin, Mode=TwoWay}"   Margin="30,0"/>
+
+                    <Label HorizontalOptions="Start" Text="Hora de Inicio" />
+                    <TimePicker Time="{Binding HoraInicio, Mode=TwoWay}" Margin="30,0"/>
+
+                    <Label HorizontalOptions="Start" Text="Hora de Cierre" />
+                    <TimePicker Time="{Binding HoraFin, Mode=TwoWay}" Margin="30,0"/>
+
+                    <Label HorizontalOptions="Start" Text="Valor de Actividad (Opcional)" />
+                    <Entry Margin="30,0" TextColor="Black" Text="{Binding Valor}" HorizontalTextAlignment="Center" Keyboard="Numeric"/>
+
+                    <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding Proceso, Mode=TwoWay}"/>
+
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="CREAR" BackgroundColor="ForestGreen" BorderRadius="20" 
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold"
+                                HorizontalOptions="FillAndExpand" Command="{Binding actionRegistrarActividad}"
+                                IsEnabled="{Binding BotonActivo, Mode=TwoWay}"/>
+                        <Button Text="Cancelar" BackgroundColor="OrangeRed" BorderRadius="20" 
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold"
+                                HorizontalOptions="FillAndExpand" Command="{Binding actionCancelar}"/>
+                    </StackLayout>
+                </StackLayout>
+
+                <StackLayout IsVisible="{Binding MuestraActividad}">
+                    <Label FontSize="Large" TextColor="Black" FontAttributes="Bold" FontFamily="Arial" FormattedText="" 
+                           VerticalOptions="StartAndExpand" HorizontalOptions="FillAndExpand" 
+                           Text="{Binding Descripcion}"/>
+
+                    <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding Proceso, Mode=TwoWay}"/>
+
+                    <StackLayout IsVisible="{Binding ImagenVisible, Mode=TwoWay}">
+                        <Image HorizontalOptions="CenterAndExpand" Source="{Binding RutaImagen, Mode=TwoWay}" WidthRequest="100"/>
+                        <Label Text=""/>
+                        <Label Text=""/>
+                        <Image HorizontalOptions="CenterAndExpand" Source="download" WidthRequest="125">
+                            <Image.GestureRecognizers>
+                                <TapGestureRecognizer Command="{Binding actionDescargarArchivo}"></TapGestureRecognizer>
+                            </Image.GestureRecognizers>
+                        </Image>
+                    </StackLayout>
+
+
+                    <Button Text="CARGAR ARCHIVO" IsVisible="{Binding CargarArchivo}" BackgroundColor="DarkBlue" BorderRadius="20" 
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold"
+                                HorizontalOptions="FillAndExpand" Command="{Binding actionCargaArchivo}"/>
+
+                    <Label Text=""/>
+
+                    <Label Text="{Binding NombreArchivo}" HorizontalOptions="CenterAndExpand"/>
+
+                    <Label Text=""/>
+                    <Label Text=""/>
+
+                    <StackLayout Orientation="Horizontal" IsVisible="{Binding BotonActivo}">
+                        <Button Text="Subir" BackgroundColor="ForestGreen" BorderRadius="20" 
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold"
+                                HorizontalOptions="FillAndExpand" Command="{Binding actionGuardaArchivo}"/>
+                        <Button Text="Cancelar" BackgroundColor="OrangeRed" BorderRadius="20" 
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold"
+                                HorizontalOptions="FillAndExpand" Command="{Binding actionCancelarArchivo}"/>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

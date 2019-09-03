@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<MasterDetailPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="S_LEARNING.vista.VMenu"
+             BindingContext="{Binding Main, Source={StaticResource instanceLocator}}"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False"
+             Icon="home.png"
+             Title="Inicio">
+    <MasterDetailPage.Master>
+        <ContentPage BindingContext="{Binding Home}" Title="P">
+            <ListView HasUnevenRows="true" ItemsSource="{Binding Cursos, Mode=TwoWay}" 
+                      SeparatorVisibility="None" IsPullToRefreshEnabled="True"
+                      IsRefreshing="{Binding Proceso}" RefreshCommand="{Binding actionRefreshCursos}">
+                <ListView.Header>
+                    <Grid BackgroundColor="#03A9F4">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <StackLayout Grid.Column="0" Margin="15">
+                            <Image HorizontalOptions="Start" Source="i_user" Grid.Row="0" WidthRequest="75">
+                                <Image.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding UserProfile}"></TapGestureRecognizer>
+                                </Image.GestureRecognizers>
+                            </Image>
+                            <Label Text=""/>
+                            <Label Grid.Row="1" Text="{Binding NombreUsuario, Mode=TwoWay}" TextColor="White" FontAttributes="Bold"/>
+                            <Label Grid.Row="2" Text="{Binding CorreoUsuario, Mode=TwoWay}" TextColor="White"/>
+                        </StackLayout>
+                    </Grid>
+                </ListView.Header>
+                <ListView.ItemTemplate>
+                    <DataTemplate>
+                        <ViewCell>
+                            <Frame CornerRadius="10" HasShadow="true" Margin="2">
+                                <Frame.GestureRecognizers>
+                                    <TapGestureRecognizer Command="{Binding actionRedireccionaCurso}"/>
+                                </Frame.GestureRecognizers>
+
+                                <Grid>
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="40"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="40"/>
+                                    </Grid.ColumnDefinitions>
+
+                                    <Image  Grid.Column="0" HorizontalOptions="End" Source="i_curso"/>
+                                    <Label Grid.Column="1" FontAttributes="Bold" FontSize="Small" Text="{Binding nombre}" TextColor="MediumVioletRed"/>
+                                    <Image HeightRequest="25" Grid.Column="2" HorizontalOptions="End" Source="ic_chevron_right"/>
+                                </Grid>
+                            </Frame>
+                        </ViewCell>
+                    </DataTemplate>
+                </ListView.ItemTemplate>
+            </ListView>
+        </ContentPage>
+    </MasterDetailPage.Master>
+</MasterDetailPage>

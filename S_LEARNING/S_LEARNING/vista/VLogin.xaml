@@ -1,0 +1,42 @@
+﻿<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="S_LEARNING.vista.VLogin"
+             BindingContext="{Binding Main, Source={StaticResource instanceLocator}}"
+             NavigationPage.HasBackButton="False"
+             NavigationPage.HasNavigationBar="False">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="5" Margin="40,0" BindingContext="{Binding Login}" VerticalOptions="FillAndExpand">
+                <Image VerticalOptions="FillAndExpand" Source="logo_0" WidthRequest="160" HorizontalOptions="FillAndExpand"/>
+                <Image VerticalOptions="FillAndExpand" Source="logo_1" WidthRequest="225" HorizontalOptions="FillAndExpand"/>
+                <Label Text=""/>
+                <Entry Placeholder="Email" HorizontalTextAlignment="Center" Keyboard="Email" Text="{Binding Email, Mode=TwoWay}"/>
+                <Label Text=""/>
+                <Entry Placeholder="Password" HorizontalTextAlignment="Center" IsPassword="True" Text="{Binding Password, Mode=TwoWay}"/>
+
+                <ActivityIndicator VerticalOptions="CenterAndExpand" IsVisible="True" IsRunning="{Binding Proceso, Mode=TwoWay}"/>
+
+                <StackLayout Orientation="Horizontal">
+                    <Button Text="Iniciar" BackgroundColor="Navy" BorderRadius="23" 
+                        TextColor="White" HeightRequest="46" FontAttributes="Bold"
+                            HorizontalOptions="FillAndExpand" Command="{Binding actionIniciar}"
+                            IsEnabled="{Binding BtnActivo, Mode=TwoWay}"/>
+                    <Button Text="Registrar" BackgroundColor="Purple" BorderRadius="23" 
+                        TextColor="White" HeightRequest="46" FontAttributes="Bold"
+                            HorizontalOptions="FillAndExpand" Command="{Binding actionRegistrar}"
+                            IsEnabled="{Binding BtnActivo, Mode=TwoWay}"/>
+                </StackLayout>
+
+                <StackLayout Orientation="Horizontal" HorizontalOptions="Center">
+                    <Image Source="fb" WidthRequest="75">
+                        <Image.GestureRecognizers>
+                            <TapGestureRecognizer Command="{Binding LoginFacebook}"></TapGestureRecognizer>
+                        </Image.GestureRecognizers>
+                    </Image>
+                    <Image Source="tw" WidthRequest="75"/>
+                    <Image Source="insta" WidthRequest="75"/>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

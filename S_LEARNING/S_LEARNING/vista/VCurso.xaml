@@ -1,0 +1,82 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="S_LEARNING.vista.VCurso"
+             BindingContext="{Binding Main, Source={StaticResource instanceLocator}}">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout Padding="10" BindingContext="{Binding Curso}">
+                <StackLayout Margin="10,0" IsVisible="{Binding RegistroCurso}">
+                    <Image Source="logo_0" WidthRequest="140" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+                    <Image Source="logo_1" WidthRequest="205" VerticalOptions="FillAndExpand" HorizontalOptions="FillAndExpand"/>
+
+                    <Label Text=""/>
+                    <Label Text=""/>
+                    <Label Text=""/>
+                    <Entry HorizontalTextAlignment="Center" 
+                       Text="{Binding NombreCurso, Mode=TwoWay}" Placeholder="Nombre del Curso"/>
+
+                    <Picker Title="Seleccione el periodo cursante" SelectedItem="{Binding Periodo, Mode=TwoWay}">
+                        <Picker.Items>
+                            <x:String>Febrero - Julio</x:String>
+                            <x:String>Agosto - Diciembre</x:String>
+                        </Picker.Items>
+                    </Picker>
+
+                    <ActivityIndicator VerticalOptions="CenterAndExpand" IsRunning="{Binding Proceso, Mode=TwoWay}"/>
+
+                    <Button Text="Crear" BackgroundColor="ForestGreen" BorderRadius="20" 
+                        TextColor="White" HeightRequest="40" FontAttributes="Bold" VerticalOptions="End"
+                            HorizontalOptions="FillAndExpand" Command="{Binding actionRegistrarCurso}"/>
+                </StackLayout>
+
+                <StackLayout IsVisible="{Binding EsTema}">
+                    <StackLayout Orientation="Horizontal">
+                        <Button Text="Nuevo" BackgroundColor="ForestGreen" BorderRadius="20"
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold"
+                                HorizontalOptions="FillAndExpand"  VerticalOptions="StartAndExpand"
+                                Command="{Binding actionRedireccionaRegistroTema, Mode=TwoWay}"/>
+                        <Button Text="Eliminar" BackgroundColor="OrangeRed" BorderRadius="20"
+                            TextColor="White" HeightRequest="40" FontAttributes="Bold" IsEnabled="{Binding BotonActivo, Mode=TwoWay}"
+                                HorizontalOptions="FillAndExpand" VerticalOptions="StartAndExpand"
+                                Command="{Binding actionEliminarCurso, Mode=TwoWay}"/>
+                    </StackLayout>
+
+                    <Label Text="Sin registros" FontSize="Large"
+                            VerticalOptions="CenterAndExpand" TextColor="OrangeRed"
+                            HorizontalOptions="CenterAndExpand"
+                            IsVisible="{Binding ListaVacia}"/>
+
+                    <StackLayout>
+                        <ListView HasUnevenRows="true" IsPullToRefreshEnabled="True" 
+                              RefreshCommand="{Binding CargaTemas}"
+                              ItemsSource="{Binding Temas}"
+                              SeparatorVisibility="None">
+                            <ListView.ItemTemplate>
+                                <DataTemplate>
+                                    <ViewCell>
+                                        <Frame CornerRadius="10" HasShadow="true" Margin="2">
+                                            <Frame.GestureRecognizers>
+                                                <TapGestureRecognizer Command="{Binding actionRedireccionaTema}"/>
+                                            </Frame.GestureRecognizers>
+
+                                            <Grid>
+                                                <Grid.ColumnDefinitions>
+                                                    <ColumnDefinition Width="*"/>
+                                                    <ColumnDefinition Width="Auto"/>
+                                                </Grid.ColumnDefinitions>
+                                                <Label FontAttributes="Bold" FontSize="Medium" Text="{Binding nombre}" 
+                                                       TextColor="MediumVioletRed"/>
+                                                <Image HeightRequest="20" HorizontalOptions="End" Source="ic_chevron_right"/>
+                                            </Grid>
+                                        </Frame>
+                                    </ViewCell>
+                                </DataTemplate>
+                            </ListView.ItemTemplate>
+                        </ListView>
+                    </StackLayout>
+                </StackLayout>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>

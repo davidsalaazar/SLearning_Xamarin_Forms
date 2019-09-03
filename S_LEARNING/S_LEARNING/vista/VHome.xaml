@@ -1,0 +1,17 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             x:Class="S_LEARNING.vista.VHome"
+             BindingContext="{Binding Main, Source={StaticResource instanceLocator}}"
+             Icon="home.png"
+             Title="Student Learning">
+    <ContentPage.Content>
+        <ScrollView>
+            <StackLayout BindingContext="{Binding Home}">
+                <Label Text="Inicio de la aplicacion"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand"/>
+            </StackLayout>
+        </ScrollView>
+    </ContentPage.Content>
+</ContentPage>
